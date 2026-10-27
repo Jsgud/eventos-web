@@ -1,1 +1,40 @@
-<h1>Mi página de eventos</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eventos</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Mi página de eventos</h1>
+    <p>Encuentra y regístrate en los próximos eventos</p>
+  </header>
+
+  <main>
+    <section class="evento">
+      <h2>Feria de Tecnología 2026</h2>
+      <p>Fecha: 15 de noviembre, 10:00 a.m.</p>
+      <p>Lugar: Auditorio Central</p>
+    </section>
+
+    <section class="registro">
+      <h2>Regístrate</h2>
+      <form>
+        <label for="nombre">Nombre completo</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="correo">Correo electrónico</label>
+        <input type="email" id="correo" name="correo" required>
+
+        <button type="submit">Confirmar asistencia</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Mi página de eventos</p>
+  </footer>
+</body>
+</html>

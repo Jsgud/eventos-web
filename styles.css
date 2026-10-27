@@ -1,0 +1,68 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+  color: #222;
+  background: #f4f6fb;
+}
+
+header {
+  background: #3b4cca;
+  color: white;
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+main {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.evento,
+.registro {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+form {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+input {
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+button {
+  padding: 0.75rem;
+  background: #3b4cca;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #2c3aa3;
+}
+
+footer {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: #666;
+}
