@@ -66,3 +66,16 @@ footer {
   padding: 2rem 1rem;
   color: #666;
 }
+
+#mensaje {
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+.exito {
+  color: #1a7f37;
+}
+
+.error {
+  color: #c62828;
+}

@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Eventos</title>
   <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
   <header>
@@ -21,7 +22,7 @@
 
     <section class="registro">
       <h2>Regístrate</h2>
-      <form>
+      <form id="form-registro">
         <label for="nombre">Nombre completo</label>
         <input type="text" id="nombre" name="nombre" required>
 
@@ -30,6 +31,7 @@
 
         <button type="submit">Confirmar asistencia</button>
       </form>
+      <p id="mensaje"></p>
     </section>
   </main>
 
