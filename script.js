@@ -29,6 +29,7 @@ const eventos = [
   { id: 2, nombre: "Taller de Programación Web", fecha: "2026-11-22", lugar: "Laboratorio 3" },
   { id: 3, nombre: "Conferencia de Ciberseguridad", fecha: "2026-12-05", lugar: "Sala de Conferencias" },
   { id: 4, nombre: "Hackatón Universitario", fecha: "2026-12-12", lugar: "Campus Principal" },
+  { id: 5, nombre: "Taller de Unity 3D", fecha: "2026-12-23", lugar: "Campus Principal" },
 ];
 
 const listaEventos = document.querySelector("#lista-eventos");
@@ -66,7 +67,8 @@ function mostrarEventos(lista) {
 buscador.addEventListener("input", () => {
   const texto = buscador.value.toLowerCase();
   const filtrados = eventos.filter((evento) =>
-    evento.nombre.toLowerCase().includes(texto)
+    evento.nombre.toLowerCase().includes(texto) ||
+    evento.lugar.toLowerCase().includes(texto)
   );
   mostrarEventos(filtrados);
 });
