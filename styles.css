@@ -79,3 +79,14 @@ footer {
 .error {
   color: #c62828;
 }
+
+#lista-eventos {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+#buscador {
+  width: 100%;
+  margin-top: 0.75rem;
+}
