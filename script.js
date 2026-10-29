@@ -6,6 +6,7 @@ formulario.addEventListener("submit", (evento) => {
 
   const nombre = document.querySelector("#nombre").value.trim();
   const correo = document.querySelector("#correo").value.trim();
+  const eventoElegido = eventos.find((e) => e.id === Number(selectEvento.value));
 
   if (nombre.length < 3) {
     mostrarMensaje("El nombre debe tener al menos 3 caracteres.", "error");
@@ -13,7 +14,7 @@ formulario.addEventListener("submit", (evento) => {
   }
 
   mostrarMensaje(
-    `¡Gracias, ${nombre}! Te enviaremos la confirmación a ${correo}.`,
+    `¡Gracias, ${nombre}! Quedaste registrado en "${eventoElegido.nombre}". Te escribiremos a ${correo}.`,
     "exito"
   );
   formulario.reset();
@@ -59,8 +60,15 @@ function mostrarEventos(lista) {
       <h3>${evento.nombre}</h3>
       <p>Fecha: ${formatearFecha(evento.fecha)}</p>
       <p>Lugar: ${evento.lugar}</p>
+      <button>Registrarme</button>
     `;
     listaEventos.appendChild(tarjeta);
+
+    tarjeta.querySelector("button").addEventListener("click", () => {
+        selectEvento.value = evento.id;
+        document.querySelector("#form-registro").scrollIntoView({ behavior: "smooth" });
+        document.querySelector("#nombre").focus();
+    });
   });
 }
 
@@ -71,6 +79,15 @@ buscador.addEventListener("input", () => {
     evento.lugar.toLowerCase().includes(texto)
   );
   mostrarEventos(filtrados);
+});
+
+const selectEvento = document.querySelector("#evento-select");
+
+eventos.forEach((evento) => {
+  const opcion = document.createElement("option");
+  opcion.value = evento.id;
+  opcion.textContent = evento.nombre;
+  selectEvento.appendChild(opcion);
 });
 
 mostrarEventos(eventos);

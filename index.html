@@ -14,7 +14,7 @@
   </header>
 
   <main>
-    
+
     <section>
         <h2>Próximos eventos</h2>
         <input type="search" id="buscador" placeholder="Buscar evento...">
@@ -24,6 +24,10 @@
     <section class="registro">
       <h2>Regístrate</h2>
       <form id="form-registro">
+        
+        <label for="evento-select">Evento</label>
+        <select id="evento-select" name="evento" required></select>
+
         <label for="nombre">Nombre completo</label>
         <input type="text" id="nombre" name="nombre" required>
 
