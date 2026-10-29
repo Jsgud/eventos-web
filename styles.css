@@ -86,6 +86,11 @@ footer {
   margin-top: 1rem;
 }
 
+.evento-registros {
+  color: #555;
+  font-size: 0.9rem;
+}
+
 #buscador {
   width: 100%;
   margin-top: 0.75rem;
@@ -101,4 +106,15 @@ footer {
 .asistentes ul {
   margin-top: 1rem;
   padding-left: 1.25rem;
+}
+
+.eliminar-registro {
+  margin-left: 0.5rem;
+  padding: 0.35rem 0.6rem;
+  background: #c62828;
+  font-size: 0.875rem;
+}
+
+.eliminar-registro:hover {
+  background: #a51f1f;
 }

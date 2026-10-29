@@ -9,6 +9,10 @@ function obtenerRegistros() {
 function guardarRegistro(registro) {
   const registros = obtenerRegistros();
   registros.push(registro);
+  guardarRegistros(registros);
+}
+
+function guardarRegistros(registros) {
   localStorage.setItem("registros", JSON.stringify(registros));
 }
 
@@ -41,6 +45,7 @@ formulario.addEventListener("submit", (evento) => {
   });
 
   mostrarAsistentes();
+  actualizarEventosVisibles();
 
   mostrarMensaje(
     `¡Gracias, ${nombre}! Quedaste registrado en "${eventoElegido.nombre}". Te escribiremos a ${correo}.`,
@@ -74,6 +79,15 @@ function formatearFecha(fecha) {
   });
 }
 
+function actualizarEventosVisibles() {
+  const texto = buscador.value.toLowerCase();
+  const filtrados = eventos.filter((evento) =>
+    evento.nombre.toLowerCase().includes(texto) ||
+    evento.lugar.toLowerCase().includes(texto)
+  );
+  mostrarEventos(filtrados);
+}
+
 function mostrarEventos(lista) {
   listaEventos.innerHTML = "";
 
@@ -83,12 +97,17 @@ function mostrarEventos(lista) {
   }
 
   lista.forEach((evento) => {
+    const cantidadRegistros = obtenerRegistros().filter(
+      (registro) => registro.eventoId === evento.id
+    ).length;
+    const personasRegistradas = cantidadRegistros === 1 ? "persona registrada" : "personas registradas";
     const tarjeta = document.createElement("article");
     tarjeta.className = "evento";
     tarjeta.innerHTML = `
       <h3>${evento.nombre}</h3>
       <p>Fecha: ${formatearFecha(evento.fecha)}</p>
       <p>Lugar: ${evento.lugar}</p>
+      <p class="evento-registros">${cantidadRegistros} ${personasRegistradas}</p>
       <button>Registrarme</button>
     `;
     listaEventos.appendChild(tarjeta);
@@ -102,12 +121,7 @@ function mostrarEventos(lista) {
 }
 
 buscador.addEventListener("input", () => {
-  const texto = buscador.value.toLowerCase();
-  const filtrados = eventos.filter((evento) =>
-    evento.nombre.toLowerCase().includes(texto) ||
-    evento.lugar.toLowerCase().includes(texto)
-  );
-  mostrarEventos(filtrados);
+  actualizarEventosVisibles();
 });
 
 const selectEvento = document.querySelector("#evento-select");
@@ -132,11 +146,25 @@ function mostrarAsistentes() {
     return;
   }
 
-  registros.forEach((registro) => {
+  registros.forEach((registro, indice) => {
     const evento = eventos.find((e) => e.id === registro.eventoId);
     const item = document.createElement("li");
-    item.textContent = `${registro.nombre} (${registro.correo}) - ${evento.nombre}`;
+    item.append(`${registro.nombre} (${registro.correo}) - ${evento.nombre}`);
+
+    const botonEliminar = document.createElement("button");
+    botonEliminar.type = "button";
+    botonEliminar.className = "eliminar-registro";
+    botonEliminar.textContent = "Eliminar";
+    botonEliminar.addEventListener("click", () => {
+      const registrosActualizados = obtenerRegistros().filter((_, i) => i !== indice);
+      guardarRegistros(registrosActualizados);
+      mostrarAsistentes();
+      actualizarEventosVisibles();
+    });
+
+    item.appendChild(botonEliminar);
     listaAsistentes.appendChild(item);
   });
 }
 
+mostrarAsistentes();
