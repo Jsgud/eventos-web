@@ -1,6 +1,17 @@
 const formulario = document.querySelector("#form-registro");
 const mensaje = document.querySelector("#mensaje");
 
+function obtenerRegistros() {
+  const guardado = localStorage.getItem("registros");
+  return guardado ? JSON.parse(guardado) : [];
+}
+
+function guardarRegistro(registro) {
+  const registros = obtenerRegistros();
+  registros.push(registro);
+  localStorage.setItem("registros", JSON.stringify(registros));
+}
+
 formulario.addEventListener("submit", (evento) => {
   evento.preventDefault(); // evita que la página se recargue
 
@@ -12,6 +23,24 @@ formulario.addEventListener("submit", (evento) => {
     mostrarMensaje("El nombre debe tener al menos 3 caracteres.", "error");
     return;
   }
+
+  const yaRegistrado = obtenerRegistros().some(
+    (r) => r.correo === correo && r.eventoId === eventoElegido.id
+  );
+
+  if (yaRegistrado) {
+    mostrarMensaje("Ese correo ya está registrado en este evento.", "error");
+    return;
+  }
+
+  guardarRegistro({
+    nombre,
+    correo,
+    eventoId: eventoElegido.id,
+    fecha: new Date().toISOString(),
+  });
+
+  mostrarAsistentes();
 
   mostrarMensaje(
     `¡Gracias, ${nombre}! Quedaste registrado en "${eventoElegido.nombre}". Te escribiremos a ${correo}.`,
@@ -91,3 +120,23 @@ eventos.forEach((evento) => {
 });
 
 mostrarEventos(eventos);
+
+const listaAsistentes = document.querySelector("#lista-asistentes");
+
+function mostrarAsistentes() {
+  const registros = obtenerRegistros();
+  listaAsistentes.innerHTML = "";
+
+  if (registros.length === 0) {
+    listaAsistentes.innerHTML = "<li>Aún no hay registros.</li>";
+    return;
+  }
+
+  registros.forEach((registro) => {
+    const evento = eventos.find((e) => e.id === registro.eventoId);
+    const item = document.createElement("li");
+    item.textContent = `${registro.nombre} (${registro.correo}) - ${evento.nombre}`;
+    listaAsistentes.appendChild(item);
+  });
+}
+
